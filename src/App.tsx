@@ -1,22 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-
 
 import { createStore, combineReducers } from '../node_modules/redux'
 
 import { playerReducer } from './redux/reducers/PlayerReducer';
-import { monsterReducer } from './redux/reducers/MonsterReducer';
 import { move } from './redux/actions/PlayerActions';
 import { mapReducer } from './redux/reducers/MapReducer';
 import { initMap, updatePosition } from './redux/actions/MapActions';
 import { Point } from './types/Point';
+import { Map } from './components/map/Map';
 
 
 const reducers = combineReducers({
   map: mapReducer,
-  player: playerReducer,
-  monster: monsterReducer
+  player: playerReducer
 });
 
 const store = createStore(reducers);
@@ -37,20 +34,8 @@ store.dispatch(updatePosition(playerNextPosition, store.getState().player));
 const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>This should look like an rpg map..</h1>
+      <Map children={store.getState().map.gameMap}></Map>
     </div>
   );
 }

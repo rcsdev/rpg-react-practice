@@ -5,7 +5,6 @@ export const initialState = {
             y: 0
         }
     },
-    monster: {},
     map: {
         rows: 5,
         columns: 5,
