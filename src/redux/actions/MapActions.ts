@@ -1,4 +1,3 @@
-import { Point } from '../../types/Point';
 /**
  * Map Actions & Definitions
  */
@@ -15,10 +14,10 @@ export const initMap = (state: any) => ({
 });
 /**
  * 
- * @param p current point to update with
+ * @param p current cell id to update with
  * @param entity entity to place into the given position
  */
-export const updatePosition = (point: Point, entity: any) => ({
+export const updatePosition = (cellId: number, entity: any) => ({
     type: MapActions.UPDATE_POSITION,
-    payload: { point, entity }
+    payload: { cellId, entity }
 });

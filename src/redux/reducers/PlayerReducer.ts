@@ -1,16 +1,14 @@
 import { PlayerActions } from '../actions/PlayerActions';
-import { initialState } from '../../constants/InitialState';
-
+import { initialState } from '../states/InitialState';
 
 export const playerReducer = (state = initialState.player, action: { type: any; payload: any; }) => {
     switch (action.type) {
         case PlayerActions.MOVE:
-            let { x, y } = action.payload;
-            return {
-                position: {
-                    x: x,
-                    y: y
-                }
+            return { 
+                position: action.payload.cellId,
+                name: action.payload.entity.name,
+                maxHitPoints: action.payload.entity.maxHitPoints,
+                hitPoints: action.payload.entity.hitPoints
             };
         default:
             return state;

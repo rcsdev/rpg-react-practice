@@ -1,9 +1,7 @@
 import { MonsterActions } from '../actions/MonsterActions';
-import { initialState } from '../../constants/InitialState';
+import { initialState } from '../states/InitialState';
 
-
-export const monsterReducer =
-    (state = initialState.monster, action: { type: any; payload: any; }) => {
+export const monsterReducer = (state = initialState, action: { type: any; payload: any; }) => {
         switch (action.type) {
             case MonsterActions.ATTACK:
                 let damage = action.payload.damage;

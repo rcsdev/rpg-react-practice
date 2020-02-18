@@ -1,5 +1,3 @@
-import { Point } from '../../types/Point';
-
 /**
  * Player Actions
  */
@@ -9,7 +7,7 @@ export const PlayerActions = {
 /**
  * Actions definitions
  */
-export const move = (point: Point) => ({
+export const move = (cellId: number, entity: any) => ({
     type: PlayerActions.MOVE,
-    payload: point
+    payload: { cellId: cellId, entity: entity }
 });

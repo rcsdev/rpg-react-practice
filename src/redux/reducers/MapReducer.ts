@@ -1,39 +1,41 @@
 
 import { MapActions } from '../actions/MapActions';
 import { MapPosition } from '../../types/MapPosition';
-import { initialState } from '../../constants/InitialState';
+import { initialState } from '../states/InitialState';
+import { ROWS, COLUMNS } from '../../constants/GameConfig';
 
 
 export const mapReducer = (state = initialState.map, action: any) => {
-
     switch (action.type) {
         case MapActions.INIT_MAP:
-            let gameMap = new Array<MapPosition>();
-            for (let _i = 0; _i < state.rows; _i++) {
-                for (let _j = 0; _j < state.columns; _j++) {
-                    gameMap.push({ point: { x: _i, y: _j }, entities: [] });
+            const _gameMap = new Array<MapPosition>();
+            let cellCount = 0;
+            for (let _i = 0; _i < ROWS; _i++) {
+                for (let _j = 0; _j < COLUMNS; _j++) {
+                    _gameMap.push({cellId: cellCount, entities: [] });
+                    cellCount++;
                 }
             }
             return {
-                rows: 5,
-                columns: 5,
-                cellSize: 24,
-                gameMap: gameMap
+                rows: ROWS,
+                columns: COLUMNS,
+                gameMap: _gameMap
             }
         case MapActions.UPDATE_POSITION:
-            let _gameMap = new Array<MapPosition>();
-            for (let _i = 0; _i < state.gameMap.length; _i++) {
-                _gameMap.push(state.gameMap[_i]);
-                if (state.gameMap[_i]['point']['x'] === action.payload.point.x &&
-                    state.gameMap[_i]['point']['y'] === action.payload.point.y) {
-                    _gameMap[_i].entities.push(action.payload.entity);
+            const __gameMap = new Array<MapPosition>();
+
+            state.gameMap.forEach(cell => {
+                if (cell.cellId === action.payload.cellId) {
+                    if (!cell.entities.includes(action.payload.entity)){
+                        cell.entities.push(action.payload.entity);
+                    }
                 }
-            }
+                __gameMap.push(cell);
+            });
             return {
-                rows: 5,
-                columns: 5,
-                cellSize: 24,
-                gameMap: _gameMap
+                rows: ROWS,
+                columns: COLUMNS,
+                gameMap: __gameMap
             }
     }
     return state;
